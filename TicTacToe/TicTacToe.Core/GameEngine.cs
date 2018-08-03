@@ -7,11 +7,17 @@
     {
         private readonly IGameBoard gameBoard;
 
-        public GameEngine(IGameBoard gameBoard)
+        private readonly IMoveValidator moveValidator;
+
+        private readonly IWinnerAnalyzer winnerAnalyzer;
+
+        public GameEngine(IGameBoard gameBoard, IMoveValidator moveValidator, IWinnerAnalyzer winnerAnalyzer)
         {
             this.gameBoard = gameBoard ?? throw new ArgumentNullException(nameof(gameBoard));
+            this.moveValidator = moveValidator ?? throw new ArgumentNullException(nameof(moveValidator));
+            this.winnerAnalyzer = winnerAnalyzer ?? throw new ArgumentNullException(nameof(winnerAnalyzer));
 
-            GameState = GameState.NewGameXMove;
+            NewGame();
         }
 
         public GameBoardMark[,] GameBoard => gameBoard.GameBoard;
@@ -20,7 +26,9 @@
 
         public void MakeMove()
         {
+            moveValidator.ValidateMove();
             gameBoard.PlaceMarker();
+            winnerAnalyzer.AnalyzeGameBoard();
         }
 
         public void NewGame()

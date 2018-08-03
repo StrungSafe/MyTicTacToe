@@ -13,12 +13,20 @@
         {
             gameBoardMock = Substitute.For<IGameBoard>();
 
-            systemUnderTest = NewGameEngine(gameBoardMock);
+            moveValidatorMock = Substitute.For<IMoveValidator>();
+
+            winnerAnalyzerMock = Substitute.For<IWinnerAnalyzer>();
+
+            systemUnderTest = NewGameEngine(gameBoardMock, moveValidatorMock, winnerAnalyzerMock);
         }
 
         private IGameBoard gameBoardMock;
 
+        private IMoveValidator moveValidatorMock;
+
         private IGameEngine systemUnderTest;
+
+        private IWinnerAnalyzer winnerAnalyzerMock;
 
         [Test]
         public void Constructor_WhenInvoked_SetsNewGame()
@@ -31,7 +39,13 @@
         {
             Assert.Throws<ArgumentNullException>(
                 () =>
-                    NewGameEngine(null));
+                    NewGameEngine(null, moveValidatorMock, winnerAnalyzerMock));
+            Assert.Throws<ArgumentNullException>(
+                () =>
+                    NewGameEngine(gameBoardMock, null, winnerAnalyzerMock));
+            Assert.Throws<ArgumentNullException>(
+                () =>
+                    NewGameEngine(gameBoardMock, moveValidatorMock, null));
         }
 
         [Test]
@@ -39,15 +53,12 @@
         {
             systemUnderTest.MakeMove();
 
-            gameBoardMock.Received().PlaceMarker();
-        }
-
-        [Test]
-        public void NewGame_WhenInvoked_ClearsGameBoard()
-        {
-            systemUnderTest.NewGame();
-
-            gameBoardMock.Received().Clear();
+            Received.InOrder(() =>
+            {
+                moveValidatorMock.ValidateMove();
+                gameBoardMock.PlaceMarker();
+                winnerAnalyzerMock.AnalyzeGameBoard();
+            });
         }
 
         [Test]
@@ -60,12 +71,15 @@
 
         private void AssertNewGame()
         {
+            gameBoardMock.Received().Clear();
+
             Assert.That(systemUnderTest.GameState, Is.EqualTo(GameState.NewGameXMove));
         }
 
-        private IGameEngine NewGameEngine(IGameBoard gameBoard)
+        private IGameEngine NewGameEngine(IGameBoard gameBoard, IMoveValidator moveValidator,
+            IWinnerAnalyzer winnerAnalyzer)
         {
-            return new GameEngine(gameBoard);
+            return new GameEngine(gameBoard, moveValidator, winnerAnalyzer);
         }
     }
 }
