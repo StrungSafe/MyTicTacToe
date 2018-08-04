@@ -11,7 +11,17 @@
                 return false;
             }
 
-            if (NotPlayerTurn(move.Player, gameState))
+            if (NotPlayerTurn(move, gameState))
+            {
+                return false;
+            }
+
+            if (MoveExceedsGameBoardBounds(move, gameBoard))
+            {
+                return false;
+            }
+
+            if (IsMoveLocationOccupied(move, gameBoard))
             {
                 return false;
             }
@@ -24,11 +34,24 @@
             return gameState == GameState.XWinner || gameState == GameState.OWinner || gameState == GameState.Tie;
         }
 
-        private bool NotPlayerTurn(Player player, GameState gameState)
+        private bool IsMoveLocationOccupied(Move move, GameBoardMark[,] gameBoard)
         {
-            return player == Player.X && gameState == GameState.OMove ||
-                   player == Player.O && gameState == GameState.NewGameXMove ||
-                   player == Player.O && gameState == GameState.XMove;
+            return gameBoard[move.Row, move.Column] != GameBoardMark.Empty;
+        }
+
+        private bool MoveExceedsGameBoardBounds(Move move, GameBoardMark[,] gameBoard)
+        {
+            int row = gameBoard.GetLength(0);
+            int column = gameBoard.GetLength(1);
+
+            return move.Row + 1 > row || move.Column + 1 > column;
+        }
+
+        private bool NotPlayerTurn(Move move, GameState gameState)
+        {
+            return move.Player == Player.X && gameState == GameState.OMove ||
+                   move.Player == Player.O && gameState == GameState.NewGameXMove ||
+                   move.Player == Player.O && gameState == GameState.XMove;
         }
     }
 }

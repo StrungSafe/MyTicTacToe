@@ -21,7 +21,7 @@
 
             systemUnderTest = NewGameEngine(gameBoardMock, moveValidatorMock, gameBoardAnalyzerMock);
 
-            move = new Move(Player.X);
+            move = new Move(Player.X, 0, 0);
         }
 
         private IGameBoardAnalyzer gameBoardAnalyzerMock;
