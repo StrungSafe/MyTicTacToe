@@ -4,13 +4,13 @@
     using NUnit.Framework;
 
     [TestFixture]
-    public class TestWinnerAnalyzer
+    public class TestGameBoardAnalyzer
     {
         [SetUp]
         public void SetUp()
         {
         }
 
-        private IWinnerAnalyzer systemUnderTest;
+        private IGameBoardAnalyzer systemUnderTest;
     }
 }

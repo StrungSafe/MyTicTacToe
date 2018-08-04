@@ -2,6 +2,6 @@
 {
     public interface IMoveValidator
     {
-        void ValidateMove();
+        bool IsValidMove();
     }
 }

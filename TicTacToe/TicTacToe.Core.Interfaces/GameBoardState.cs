@@ -1,12 +1,8 @@
 ﻿namespace TicTacToe.Core.Interfaces
 {
-    public enum GameState
+    public enum GameBoardState
     {
-        NewGameXMove,
-
-        XMove,
-
-        OMove,
+        Open,
 
         XWinner,
 
