@@ -24,9 +24,9 @@
 
         public GameState GameState { get; private set; }
 
-        public bool MakeMove()
+        public bool MakeMove(Move move)
         {
-            if (!moveValidator.IsValidMove())
+            if (!moveValidator.IsValidMove(move, GameState, GameBoard))
             {
                 return false;
             }

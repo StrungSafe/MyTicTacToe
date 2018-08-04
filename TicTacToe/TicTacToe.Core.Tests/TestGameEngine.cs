@@ -14,17 +14,21 @@
             gameBoardMock = Substitute.For<IGameBoard>();
 
             moveValidatorMock = Substitute.For<IMoveValidator>();
-            moveValidatorMock.IsValidMove().Returns(true);
+            moveValidatorMock.IsValidMove(null, Arg.Any<GameState>(), null).ReturnsForAnyArgs(true);
 
             gameBoardAnalyzerMock = Substitute.For<IGameBoardAnalyzer>();
             gameBoardAnalyzerMock.AnalyzeGameBoard().Returns(GameBoardState.Open);
 
             systemUnderTest = NewGameEngine(gameBoardMock, moveValidatorMock, gameBoardAnalyzerMock);
+
+            move = new Move(Player.X);
         }
 
         private IGameBoardAnalyzer gameBoardAnalyzerMock;
 
         private IGameBoard gameBoardMock;
+
+        private Move move;
 
         private IMoveValidator moveValidatorMock;
 
@@ -51,7 +55,7 @@
         }
 
         [Test]
-        public void MakeMove_WhenGettingGameBoard_ReturnsGameBoard()
+        public void GameBoardGetter_WhenGettingGameBoard_ReturnsGameBoard()
         {
             var expected = new GameBoardMark[0, 0];
             gameBoardMock.GameBoard.Returns(expected);
@@ -62,9 +66,9 @@
         [Test]
         public void MakeMove_WhenInvalidMove_DoesNotChangePlayerMove()
         {
-            moveValidatorMock.IsValidMove().Returns(false);
+            moveValidatorMock.IsValidMove(move, Arg.Any<GameState>(), Arg.Any<GameBoardMark[,]>()).Returns(false);
 
-            systemUnderTest.MakeMove();
+            InvokeMakeMove();
 
             Assert.That(systemUnderTest.GameState, Is.EqualTo(GameState.NewGameXMove));
         }
@@ -72,9 +76,9 @@
         [Test]
         public void MakeMove_WhenInvalidMove_DoesNotMakeMove()
         {
-            moveValidatorMock.IsValidMove().Returns(false);
+            moveValidatorMock.IsValidMove(move, Arg.Any<GameState>(), Arg.Any<GameBoardMark[,]>()).Returns(false);
 
-            systemUnderTest.MakeMove();
+            InvokeMakeMove();
 
             gameBoardMock.DidNotReceive().PlaceMarker();
         }
@@ -82,9 +86,9 @@
         [Test]
         public void MakeMove_WhenInvalidMove_ReturnsMoveResult()
         {
-            moveValidatorMock.IsValidMove().Returns(false);
+            moveValidatorMock.IsValidMove(move, Arg.Any<GameState>(), Arg.Any<GameBoardMark[,]>()).Returns(false);
 
-            bool actual = systemUnderTest.MakeMove();
+            bool actual = InvokeMakeMove();
 
             Assert.That(actual, Is.False);
         }
@@ -92,11 +96,11 @@
         [Test]
         public void MakeMove_WhenInvoked_MakesMove()
         {
-            systemUnderTest.MakeMove();
+            InvokeMakeMove();
 
             Received.InOrder(() =>
             {
-                moveValidatorMock.IsValidMove();
+                moveValidatorMock.IsValidMove(move, Arg.Any<GameState>(), Arg.Any<GameBoardMark[,]>());
                 gameBoardMock.PlaceMarker();
                 gameBoardAnalyzerMock.AnalyzeGameBoard();
             });
@@ -105,7 +109,7 @@
         [Test]
         public void MakeMove_WhenMoveMade_SetsOPlayerMove()
         {
-            systemUnderTest.MakeMove();
+            InvokeMakeMove();
 
             Assert.That(systemUnderTest.GameState, Is.EqualTo(GameState.OMove));
         }
@@ -113,8 +117,8 @@
         [Test]
         public void MakeMove_WhenMovesMade_SetsXPlayer()
         {
-            systemUnderTest.MakeMove();
-            systemUnderTest.MakeMove();
+            InvokeMakeMove();
+            InvokeMakeMove();
 
             Assert.That(systemUnderTest.GameState, Is.EqualTo(GameState.XMove));
         }
@@ -124,7 +128,7 @@
         {
             gameBoardAnalyzerMock.AnalyzeGameBoard().Returns(GameBoardState.Tie);
 
-            systemUnderTest.MakeMove();
+            InvokeMakeMove();
 
             Assert.That(systemUnderTest.GameState, Is.EqualTo(GameState.Tie));
         }
@@ -135,7 +139,7 @@
         {
             gameBoardAnalyzerMock.AnalyzeGameBoard().Returns(gameBoardState);
 
-            systemUnderTest.MakeMove();
+            InvokeMakeMove();
 
             Assert.That(systemUnderTest.GameState, Is.EqualTo(expected));
         }
@@ -153,6 +157,11 @@
             gameBoardMock.Received().Clear();
 
             Assert.That(systemUnderTest.GameState, Is.EqualTo(GameState.NewGameXMove));
+        }
+
+        private bool InvokeMakeMove()
+        {
+            return systemUnderTest.MakeMove(move);
         }
 
         private IGameEngine NewGameEngine(IGameBoard gameBoard, IMoveValidator moveValidator,
