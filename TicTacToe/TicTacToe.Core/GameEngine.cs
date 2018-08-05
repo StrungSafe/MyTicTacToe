@@ -20,7 +20,7 @@
             NewGame();
         }
 
-        public GameBoardMark[,] GameBoard => gameBoard.GameBoard;
+        public GameBoardMark[,] GameBoard => gameBoard.Board;
 
         public GameState GameState { get; private set; }
 
@@ -31,7 +31,7 @@
                 return false;
             }
 
-            gameBoard.PlaceMarker();
+            gameBoard.PlaceMarker(null);
 
             GameBoardState gameBoardState = gameBoardAnalyzer.AnalyzeGameBoard();
 

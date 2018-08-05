@@ -55,10 +55,10 @@
         }
 
         [Test]
-        public void GameBoardGetter_WhenGettingGameBoard_ReturnsGameBoard()
+        public void GameBoardGetter_WhenGettingGameBoard_ReturnsBoard()
         {
             var expected = new GameBoardMark[0, 0];
-            gameBoardMock.GameBoard.Returns(expected);
+            gameBoardMock.Board.Returns(expected);
 
             Assert.That(systemUnderTest.GameBoard, Is.EqualTo(expected));
         }
@@ -80,7 +80,7 @@
 
             InvokeMakeMove();
 
-            gameBoardMock.DidNotReceive().PlaceMarker();
+            gameBoardMock.DidNotReceive().PlaceMarker(null);
         }
 
         [Test]
@@ -101,7 +101,7 @@
             Received.InOrder(() =>
             {
                 moveValidatorMock.IsValidMove(move, Arg.Any<GameState>(), Arg.Any<GameBoardMark[,]>());
-                gameBoardMock.PlaceMarker();
+                gameBoardMock.PlaceMarker(null);
                 gameBoardAnalyzerMock.AnalyzeGameBoard();
             });
         }
