@@ -2,6 +2,6 @@
 {
     public interface IGameBoardAnalyzer
     {
-        GameBoardState AnalyzeGameBoard();
+        GameBoardState AnalyzeGameBoard(GameBoardMark[,] gameBoard);
     }
 }

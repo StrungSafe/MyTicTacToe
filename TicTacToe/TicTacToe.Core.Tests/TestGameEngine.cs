@@ -17,7 +17,7 @@
             moveValidatorMock.IsValidMove(null, Arg.Any<GameState>(), null).ReturnsForAnyArgs(true);
 
             gameBoardAnalyzerMock = Substitute.For<IGameBoardAnalyzer>();
-            gameBoardAnalyzerMock.AnalyzeGameBoard().Returns(GameBoardState.Open);
+            gameBoardAnalyzerMock.AnalyzeGameBoard(null).Returns(GameBoardState.Active);
 
             systemUnderTest = NewGameEngine(gameBoardMock, moveValidatorMock, gameBoardAnalyzerMock);
 
@@ -102,7 +102,7 @@
             {
                 moveValidatorMock.IsValidMove(move, Arg.Any<GameState>(), Arg.Any<GameBoardMark[,]>());
                 gameBoardMock.PlaceMarker(null);
-                gameBoardAnalyzerMock.AnalyzeGameBoard();
+                gameBoardAnalyzerMock.AnalyzeGameBoard(null);
             });
         }
 
@@ -126,7 +126,7 @@
         [Test]
         public void MakeMove_WhenTieGameMove_SetsTie()
         {
-            gameBoardAnalyzerMock.AnalyzeGameBoard().Returns(GameBoardState.Tie);
+            gameBoardAnalyzerMock.AnalyzeGameBoard(null).Returns(GameBoardState.Tie);
 
             InvokeMakeMove();
 
@@ -137,7 +137,7 @@
         [TestCase(GameBoardState.OWinner, GameState.OWinner)]
         public void MakeMove_WhenWinningGameMove_SetsWinner(GameBoardState gameBoardState, GameState expected)
         {
-            gameBoardAnalyzerMock.AnalyzeGameBoard().Returns(gameBoardState);
+            gameBoardAnalyzerMock.AnalyzeGameBoard(null).Returns(gameBoardState);
 
             InvokeMakeMove();
 

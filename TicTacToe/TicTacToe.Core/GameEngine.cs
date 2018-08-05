@@ -33,7 +33,7 @@
 
             gameBoard.PlaceMarker(null);
 
-            GameBoardState gameBoardState = gameBoardAnalyzer.AnalyzeGameBoard();
+            GameBoardState gameBoardState = gameBoardAnalyzer.AnalyzeGameBoard(null);
 
             UpdateGameState(gameBoardState);
 
