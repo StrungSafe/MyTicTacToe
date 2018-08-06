@@ -76,17 +76,11 @@
             int columnLength = gameBoard.GetLength(1);
 
             var winningBackwardDiagonal = true;
-            var matchingMark = GameBoardMark.Empty;
-
             int rowIndex = 0, columnIndex = 0;
+            GameBoardMark matchingMark = gameBoard[rowIndex, columnIndex];
 
             for (; rowIndex < rowLength && columnIndex < columnLength; rowIndex++, columnIndex++)
             {
-                if (rowIndex == 0)
-                {
-                    matchingMark = gameBoard[rowIndex, columnIndex];
-                }
-
                 if (gameBoard[rowIndex, columnIndex] != matchingMark)
                 {
                     winningBackwardDiagonal = false;
@@ -116,16 +110,11 @@
 
             for (var columnIndex = 0; columnIndex < columnLength; columnIndex++)
             {
-                matchingMark = GameBoardMark.Empty;
                 winningColumn = true;
+                matchingMark = gameBoard[0, columnIndex];
 
                 for (var rowIndex = 0; rowIndex < rowLength; rowIndex++)
                 {
-                    if (rowIndex == 0)
-                    {
-                        matchingMark = gameBoard[rowIndex, columnIndex];
-                    }
-
                     if (gameBoard[rowIndex, columnIndex] != matchingMark)
                     {
                         winningColumn = false;
@@ -163,17 +152,11 @@
             int columnLength = gameBoard.GetLength(1);
 
             var winningForwardDiagonal = true;
-            var matchingMark = GameBoardMark.Empty;
-
             int rowIndex = rowLength - 1, columnIndex = 0;
+            GameBoardMark matchingMark = gameBoard[rowIndex, columnIndex];
 
             for (; rowIndex >= 0 && columnIndex < columnLength; rowIndex--, columnIndex++)
             {
-                if (rowIndex == rowLength - 1)
-                {
-                    matchingMark = gameBoard[rowIndex, columnIndex];
-                }
-
                 if (gameBoard[rowIndex, columnIndex] != matchingMark)
                 {
                     winningForwardDiagonal = false;
@@ -203,16 +186,11 @@
 
             for (var rowIndex = 0; rowIndex < rowLength; rowIndex++)
             {
-                matchingMark = GameBoardMark.Empty;
                 winningRow = true;
+                matchingMark = gameBoard[rowIndex, 0];
 
                 for (var columnIndex = 0; columnIndex < columnLength; columnIndex++)
                 {
-                    if (columnIndex == 0)
-                    {
-                        matchingMark = gameBoard[rowIndex, columnIndex];
-                    }
-
                     if (gameBoard[rowIndex, columnIndex] != matchingMark)
                     {
                         winningRow = false;
