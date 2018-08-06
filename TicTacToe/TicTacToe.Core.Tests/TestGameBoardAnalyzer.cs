@@ -103,16 +103,16 @@
             {
                 {
                     GameBoardMark.X,
-                    GameBoardMark.Empty,
+                    GameBoardMark.O,
                     GameBoardMark.Empty
                 },
                 {
-                    GameBoardMark.Empty,
+                    GameBoardMark.O,
                     GameBoardMark.X,
                     GameBoardMark.Empty
                 },
                 {
-                    GameBoardMark.Empty,
+                    GameBoardMark.O,
                     GameBoardMark.Empty,
                     GameBoardMark.X
                 }
@@ -121,18 +121,18 @@
             public static readonly GameBoardMark[,] ForwardDiagonalWin =
             {
                 {
-                    GameBoardMark.Empty,
+                    GameBoardMark.O,
                     GameBoardMark.Empty,
                     GameBoardMark.X
                 },
                 {
-                    GameBoardMark.Empty,
+                    GameBoardMark.O,
                     GameBoardMark.X,
                     GameBoardMark.Empty
                 },
                 {
                     GameBoardMark.X,
-                    GameBoardMark.Empty,
+                    GameBoardMark.O,
                     GameBoardMark.Empty
                 }
             };
@@ -145,12 +145,12 @@
                     GameBoardMark.X
                 },
                 {
-                    GameBoardMark.Empty,
-                    GameBoardMark.Empty,
+                    GameBoardMark.O,
+                    GameBoardMark.O,
                     GameBoardMark.Empty
                 },
                 {
-                    GameBoardMark.Empty,
+                    GameBoardMark.O,
                     GameBoardMark.Empty,
                     GameBoardMark.Empty
                 }
@@ -198,8 +198,8 @@
             {
                 {
                     GameBoardMark.X,
-                    GameBoardMark.Empty,
-                    GameBoardMark.Empty
+                    GameBoardMark.O,
+                    GameBoardMark.O
                 },
                 {
                     GameBoardMark.X,
@@ -209,7 +209,7 @@
                 {
                     GameBoardMark.X,
                     GameBoardMark.Empty,
-                    GameBoardMark.Empty
+                    GameBoardMark.O
                 }
             };
 

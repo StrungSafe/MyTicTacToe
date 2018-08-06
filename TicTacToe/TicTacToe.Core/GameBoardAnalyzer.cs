@@ -6,9 +6,12 @@
     {
         public GameBoardState AnalyzeGameBoard(GameBoardMark[,] gameBoard)
         {
-            var gameBoardState = GameBoardState.Active;
+            if (IsMinimumMovesNotBeenMade(gameBoard))
+            {
+                return GameBoardState.Active;
+            }
 
-            if (TryWinningRow(gameBoard, out gameBoardState))
+            if (TryWinningRow(gameBoard, out GameBoardState gameBoardState))
             {
                 return gameBoardState;
             }
@@ -29,6 +32,27 @@
             }
 
             return GameBoardState.Active;
+        }
+
+        private bool IsMinimumMovesNotBeenMade(GameBoardMark[,] gameBoard)
+        {
+            int minimumNumberOfMarksForWin = 2 * gameBoard.GetLength(0) - 1;
+            var movesBeenMadeCount = 0;
+
+            foreach (GameBoardMark gameBoardMark in gameBoard)
+            {
+                if (gameBoardMark != GameBoardMark.Empty)
+                {
+                    movesBeenMadeCount++;
+
+                    if (movesBeenMadeCount == minimumNumberOfMarksForWin)
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
         }
 
         private bool TryTie(GameBoardMark[,] gameBoard, out GameBoardState gameBoardState)
