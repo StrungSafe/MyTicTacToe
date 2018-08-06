@@ -12,195 +12,225 @@
             systemUnderTest = new GameBoardAnalyzer();
         }
 
-        private static readonly GameBoardMark[,] Active =
-        {
-            {
-                GameBoardMark.Empty,
-                GameBoardMark.Empty,
-                GameBoardMark.Empty
-            },
-            {
-                GameBoardMark.Empty,
-                GameBoardMark.Empty,
-                GameBoardMark.Empty
-            },
-            {
-                GameBoardMark.Empty,
-                GameBoardMark.Empty,
-                GameBoardMark.Empty
-            }
-        };
-
-        private static readonly GameBoardMark[,] DiagonalWin =
-        {
-            {
-                GameBoardMark.X,
-                GameBoardMark.Empty,
-                GameBoardMark.Empty
-            },
-            {
-                GameBoardMark.Empty,
-                GameBoardMark.X,
-                GameBoardMark.Empty
-            },
-            {
-                GameBoardMark.Empty,
-                GameBoardMark.Empty,
-                GameBoardMark.X
-            }
-        };
-
-        private static readonly GameBoardMark[,] HorizontalWin =
-        {
-            {
-                GameBoardMark.X,
-                GameBoardMark.X,
-                GameBoardMark.X
-            },
-            {
-                GameBoardMark.Empty,
-                GameBoardMark.Empty,
-                GameBoardMark.Empty
-            },
-            {
-                GameBoardMark.Empty,
-                GameBoardMark.Empty,
-                GameBoardMark.Empty
-            }
-        };
-
-        private static readonly GameBoardMark[,] OWinner =
-        {
-            {
-                GameBoardMark.Empty,
-                GameBoardMark.X,
-                GameBoardMark.O
-            },
-            {
-                GameBoardMark.X,
-                GameBoardMark.O,
-                GameBoardMark.Empty
-            },
-            {
-                GameBoardMark.O,
-                GameBoardMark.Empty,
-                GameBoardMark.Empty
-            }
-        };
-
-        private static readonly GameBoardMark[,] TieGame =
-        {
-            {
-                GameBoardMark.X,
-                GameBoardMark.O,
-                GameBoardMark.X
-            },
-            {
-                GameBoardMark.O,
-                GameBoardMark.O,
-                GameBoardMark.X
-            },
-            {
-                GameBoardMark.X,
-                GameBoardMark.X,
-                GameBoardMark.O
-            }
-        };
-
-        private static readonly GameBoardMark[,] VerticalWin =
-        {
-            {
-                GameBoardMark.X,
-                GameBoardMark.Empty,
-                GameBoardMark.Empty
-            },
-            {
-                GameBoardMark.X,
-                GameBoardMark.Empty,
-                GameBoardMark.Empty
-            },
-            {
-                GameBoardMark.X,
-                GameBoardMark.Empty,
-                GameBoardMark.Empty
-            }
-        };
-
-        private static readonly GameBoardMark[,] XWinner =
-        {
-            {
-                GameBoardMark.Empty,
-                GameBoardMark.O,
-                GameBoardMark.X
-            },
-            {
-                GameBoardMark.O,
-                GameBoardMark.X,
-                GameBoardMark.Empty
-            },
-            {
-                GameBoardMark.X,
-                GameBoardMark.Empty,
-                GameBoardMark.Empty
-            }
-        };
-
         private IGameBoardAnalyzer systemUnderTest;
 
-        [TestCaseSource(nameof(Active))]
-        public void AnalyzeGameBoard_WhenActiveGame_ReturnsActiveState(GameBoardMark[,] gameBoard)
+        [Test]
+        public void AnalyzeGameBoard_WhenActiveGame_ReturnsActiveState()
         {
-            GameBoardState actual = systemUnderTest.AnalyzeGameBoard(gameBoard);
+            GameBoardState actual = systemUnderTest.AnalyzeGameBoard(TestGameBoards.Active);
 
             Assert.That(actual, Is.EqualTo(GameBoardState.Active));
         }
 
-        [TestCaseSource(nameof(DiagonalWin))]
-        public void AnalyzeGameBoard_WhenDiagonalWin_ReturnsXWinnerState(GameBoardMark[,] gameBoard)
+        [Test]
+        public void AnalyzeGameBoard_WhenOWinner_ReturnsOWinnerState()
         {
-            GameBoardState actual = systemUnderTest.AnalyzeGameBoard(gameBoard);
-
-            Assert.That(actual, Is.EqualTo(GameBoardState.XWinner));
-        }
-
-        [TestCaseSource(nameof(HorizontalWin))]
-        public void AnalyzeGameBoard_WhenHorizontalWin_ReturnsXWinnerState(GameBoardMark[,] gameBoard)
-        {
-            GameBoardState actual = systemUnderTest.AnalyzeGameBoard(gameBoard);
-
-            Assert.That(actual, Is.EqualTo(GameBoardState.XWinner));
-        }
-
-        [TestCaseSource(nameof(OWinner))]
-        public void AnalyzeGameBoard_WhenOWinner_ReturnsOWinnerState(GameBoardMark[,] gameBoard)
-        {
-            GameBoardState actual = systemUnderTest.AnalyzeGameBoard(gameBoard);
+            GameBoardState actual = systemUnderTest.AnalyzeGameBoard(TestGameBoards.OWinner);
 
             Assert.That(actual, Is.EqualTo(GameBoardState.OWinner));
         }
 
-        [TestCaseSource(nameof(TieGame))]
-        public void AnalyzeGameBoard_WhenTieGame_ReturnsTieState(GameBoardMark[,] gameBoard)
+        [Test]
+        public void AnalyzeGameBoard_WhenTieGame_ReturnsTieState()
         {
-            GameBoardState actual = systemUnderTest.AnalyzeGameBoard(gameBoard);
+            GameBoardState actual = systemUnderTest.AnalyzeGameBoard(TestGameBoards.TieGame);
 
             Assert.That(actual, Is.EqualTo(GameBoardState.Tie));
         }
 
-        [TestCaseSource(nameof(VerticalWin))]
-        public void AnalyzeGameBoard_WhenVerticalWin_ReturnsXWinnerState(GameBoardMark[,] gameBoard)
+        [Test]
+        public void AnalyzeGameBoard_WhenXBackwardDiagonalWin_ReturnsXWinnerState()
         {
-            GameBoardState actual = systemUnderTest.AnalyzeGameBoard(gameBoard);
+            GameBoardState actual = systemUnderTest.AnalyzeGameBoard(TestGameBoards.BackwardDiagonalWin);
 
             Assert.That(actual, Is.EqualTo(GameBoardState.XWinner));
         }
 
-        [TestCaseSource(nameof(XWinner))]
-        public void AnalyzeGameBoard_WhenXWinner_ReturnsXWinnerState(GameBoardMark[,] gameBoard)
+        [Test]
+        public void AnalyzeGameBoard_WhenXForwardDiagonalWin_ReturnsXWinnerState()
         {
-            GameBoardState actual = systemUnderTest.AnalyzeGameBoard(gameBoard);
+            GameBoardState actual = systemUnderTest.AnalyzeGameBoard(TestGameBoards.ForwardDiagonalWin);
 
             Assert.That(actual, Is.EqualTo(GameBoardState.XWinner));
+        }
+
+        [Test]
+        public void AnalyzeGameBoard_WhenXHorizontalWin_ReturnsXWinnerState()
+        {
+            GameBoardState actual = systemUnderTest.AnalyzeGameBoard(TestGameBoards.HorizontalWin);
+
+            Assert.That(actual, Is.EqualTo(GameBoardState.XWinner));
+        }
+
+        [Test]
+        public void AnalyzeGameBoard_WhenXVerticalWin_ReturnsXWinnerState()
+        {
+            GameBoardState actual = systemUnderTest.AnalyzeGameBoard(TestGameBoards.VerticalWin);
+
+            Assert.That(actual, Is.EqualTo(GameBoardState.XWinner));
+        }
+
+        [Test]
+        public void AnalyzeGameBoard_WhenXWinner_ReturnsXWinnerState()
+        {
+            GameBoardState actual = systemUnderTest.AnalyzeGameBoard(TestGameBoards.XWinner);
+
+            Assert.That(actual, Is.EqualTo(GameBoardState.XWinner));
+        }
+
+        private static class TestGameBoards
+        {
+            public static readonly GameBoardMark[,] Active =
+            {
+                {
+                    GameBoardMark.Empty,
+                    GameBoardMark.Empty,
+                    GameBoardMark.Empty
+                },
+                {
+                    GameBoardMark.Empty,
+                    GameBoardMark.Empty,
+                    GameBoardMark.Empty
+                },
+                {
+                    GameBoardMark.Empty,
+                    GameBoardMark.Empty,
+                    GameBoardMark.Empty
+                }
+            };
+
+            public static readonly GameBoardMark[,] BackwardDiagonalWin =
+            {
+                {
+                    GameBoardMark.X,
+                    GameBoardMark.Empty,
+                    GameBoardMark.Empty
+                },
+                {
+                    GameBoardMark.Empty,
+                    GameBoardMark.X,
+                    GameBoardMark.Empty
+                },
+                {
+                    GameBoardMark.Empty,
+                    GameBoardMark.Empty,
+                    GameBoardMark.X
+                }
+            };
+
+            public static readonly GameBoardMark[,] ForwardDiagonalWin =
+            {
+                {
+                    GameBoardMark.Empty,
+                    GameBoardMark.Empty,
+                    GameBoardMark.X
+                },
+                {
+                    GameBoardMark.Empty,
+                    GameBoardMark.X,
+                    GameBoardMark.Empty
+                },
+                {
+                    GameBoardMark.X,
+                    GameBoardMark.Empty,
+                    GameBoardMark.Empty
+                }
+            };
+
+            public static readonly GameBoardMark[,] HorizontalWin =
+            {
+                {
+                    GameBoardMark.X,
+                    GameBoardMark.X,
+                    GameBoardMark.X
+                },
+                {
+                    GameBoardMark.Empty,
+                    GameBoardMark.Empty,
+                    GameBoardMark.Empty
+                },
+                {
+                    GameBoardMark.Empty,
+                    GameBoardMark.Empty,
+                    GameBoardMark.Empty
+                }
+            };
+
+            public static readonly GameBoardMark[,] OWinner =
+            {
+                {
+                    GameBoardMark.Empty,
+                    GameBoardMark.X,
+                    GameBoardMark.O
+                },
+                {
+                    GameBoardMark.X,
+                    GameBoardMark.O,
+                    GameBoardMark.Empty
+                },
+                {
+                    GameBoardMark.O,
+                    GameBoardMark.Empty,
+                    GameBoardMark.Empty
+                }
+            };
+
+            public static readonly GameBoardMark[,] TieGame =
+            {
+                {
+                    GameBoardMark.X,
+                    GameBoardMark.O,
+                    GameBoardMark.X
+                },
+                {
+                    GameBoardMark.O,
+                    GameBoardMark.O,
+                    GameBoardMark.X
+                },
+                {
+                    GameBoardMark.X,
+                    GameBoardMark.X,
+                    GameBoardMark.O
+                }
+            };
+
+            public static readonly GameBoardMark[,] VerticalWin =
+            {
+                {
+                    GameBoardMark.X,
+                    GameBoardMark.Empty,
+                    GameBoardMark.Empty
+                },
+                {
+                    GameBoardMark.X,
+                    GameBoardMark.Empty,
+                    GameBoardMark.Empty
+                },
+                {
+                    GameBoardMark.X,
+                    GameBoardMark.Empty,
+                    GameBoardMark.Empty
+                }
+            };
+
+            public static readonly GameBoardMark[,] XWinner =
+            {
+                {
+                    GameBoardMark.Empty,
+                    GameBoardMark.O,
+                    GameBoardMark.X
+                },
+                {
+                    GameBoardMark.O,
+                    GameBoardMark.X,
+                    GameBoardMark.Empty
+                },
+                {
+                    GameBoardMark.X,
+                    GameBoardMark.Empty,
+                    GameBoardMark.Empty
+                }
+            };
         }
     }
 }
