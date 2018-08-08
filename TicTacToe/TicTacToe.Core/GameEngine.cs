@@ -31,9 +31,9 @@
                 return false;
             }
 
-            gameBoard.PlaceMarker(null);
+            gameBoard.PlaceMarker(move);
 
-            GameBoardState gameBoardState = gameBoardAnalyzer.AnalyzeGameBoard(null);
+            GameBoardState gameBoardState = gameBoardAnalyzer.AnalyzeGameBoard(GameBoard);
 
             UpdateGameState(gameBoardState);
 
