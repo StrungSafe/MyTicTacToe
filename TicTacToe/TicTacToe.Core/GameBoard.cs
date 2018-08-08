@@ -32,9 +32,9 @@
             int size = gameBoardSettings.Size;
             innerBoard = new GameBoardMark[size, size];
 
-            for (var row = 0; row < innerBoard.GetLength(0); row++)
+            for (var row = 0; row < size; row++)
             {
-                for (var column = 0; column < innerBoard.GetLength(1); column++)
+                for (var column = 0; column < size; column++)
                 {
                     innerBoard[row, column] = GameBoardMark.Empty;
                 }
