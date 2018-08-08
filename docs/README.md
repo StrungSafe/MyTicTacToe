@@ -12,7 +12,7 @@ This is a C# implementation of [Tic-Tac-Toe](https://en.wikipedia.org/wiki/Tic-t
 
 ### TicTacToe.Core.Interfaces
 
-This project contains all the public interfaces, data transfer objects, and enums.
+This project contains all the enums, public interfaces, and data transfer objects.
 
 ### TicTacToe.Core
 
