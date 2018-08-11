@@ -2,7 +2,7 @@
 {
     using TicTacToe.Core.Interfaces;
 
-    public class GameSettings : IGameSettings
+    public class ConsoleGameSettings : IGameSettings
     {
         public int Size => 3;
     }

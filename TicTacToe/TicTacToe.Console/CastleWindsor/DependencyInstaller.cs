@@ -14,7 +14,7 @@
             container.Register(
                 Component.For<IConsoleOutput>().ImplementedBy<ConsoleOutput>(),
                 Component.For<IConsoleInput>().ImplementedBy<ConsoleInput>(),
-                Component.For<IGameSettings>().ImplementedBy<GameSettings>(),
+                Component.For<IGameSettings>().ImplementedBy<ConsoleGameSettings>(),
                 Component.For<ITicTacToeConsoleService>().ImplementedBy<TicTacToeConsoleProvider>()
             );
 

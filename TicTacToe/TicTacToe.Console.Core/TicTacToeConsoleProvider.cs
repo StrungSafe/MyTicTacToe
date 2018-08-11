@@ -23,12 +23,20 @@
         {
             do
             {
+                Clear();
                 Draw(gameEngine.GameBoard);
                 MakeMove();
             } while (gameEngine.GameState == GameState.NewGameXMove || gameEngine.GameState == GameState.XMove ||
                      gameEngine.GameState == GameState.OMove);
 
+            Clear();
+            PrintEndOfGameState();
             Draw(gameEngine.GameBoard);
+        }
+
+        private void Clear()
+        {
+            consoleOutput.Clear();
         }
 
         private void Draw(GameBoardMark[,] gameEngineGameBoard)
@@ -73,6 +81,21 @@
                 return "O";
             }
 
+            if (gameEngine.GameState == GameState.Tie)
+            {
+                return "Tie Game";
+            }
+
+            if (gameEngine.GameState == GameState.XWinner)
+            {
+                return "X is the winner";
+            }
+
+            if (gameEngine.GameState == GameState.OWinner)
+            {
+                return "O is the winner";
+            }
+
             throw new ArgumentOutOfRangeException();
         }
 
@@ -93,6 +116,7 @@
 
         private void MakeMove()
         {
+            consoleOutput.WriteLine();
             consoleOutput.WriteLine($"{GetGameState()} Move");
             consoleOutput.Write("Row: ");
             string row = consoleInput.ReadLine();
@@ -106,8 +130,14 @@
             if (!moveMade)
             {
                 consoleOutput.WriteLine(
-                    "There was a problem with the move. Ensure withing board limits and not already taken. Try again.");
+                    "There was a problem with the move. Ensure withing board limits and space not already taken. Try again.");
             }
+        }
+
+        private void PrintEndOfGameState()
+        {
+            consoleOutput.WriteLine(GetGameState());
+            consoleOutput.WriteLine();
         }
     }
 }
