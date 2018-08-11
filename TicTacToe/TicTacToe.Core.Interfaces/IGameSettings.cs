@@ -1,6 +1,6 @@
 ﻿namespace TicTacToe.Core.Interfaces
 {
-    public interface IGameBoardSettings
+    public interface IGameSettings
     {
         int Size { get; }
     }

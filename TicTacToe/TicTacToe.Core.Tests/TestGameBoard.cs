@@ -10,13 +10,13 @@
         [SetUp]
         public void SetUp()
         {
-            gameBoardSettingsMock = Substitute.For<IGameBoardSettings>();
-            gameBoardSettingsMock.Size.Returns(3);
+            gameSettingsMock = Substitute.For<IGameSettings>();
+            gameSettingsMock.Size.Returns(3);
 
-            systemUnderTest = new GameBoard(gameBoardSettingsMock);
+            systemUnderTest = new GameBoard(gameSettingsMock);
         }
 
-        private IGameBoardSettings gameBoardSettingsMock;
+        private IGameSettings gameSettingsMock;
 
         private IGameBoard systemUnderTest;
 

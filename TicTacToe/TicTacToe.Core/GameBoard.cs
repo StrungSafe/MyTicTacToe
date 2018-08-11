@@ -4,13 +4,13 @@
 
     public class GameBoard : IGameBoard
     {
-        private readonly IGameBoardSettings gameBoardSettings;
+        private readonly IGameSettings gameSettings;
 
         private GameBoardMark[,] innerBoard;
 
-        public GameBoard(IGameBoardSettings gameBoardSettings)
+        public GameBoard(IGameSettings gameSettings)
         {
-            this.gameBoardSettings = gameBoardSettings;
+            this.gameSettings = gameSettings;
 
             CreateNewGameBoard();
         }
@@ -29,7 +29,7 @@
 
         private void CreateNewGameBoard()
         {
-            int size = gameBoardSettings.Size;
+            int size = gameSettings.Size;
             innerBoard = new GameBoardMark[size, size];
 
             for (var row = 0; row < size; row++)

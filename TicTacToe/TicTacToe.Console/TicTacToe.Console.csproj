@@ -12,6 +12,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\TicTacToe.Console.Core\TicTacToe.Console.Core.csproj" />
+    <ProjectReference Include="..\TicTacToe.Core.Interfaces\TicTacToe.Core.Interfaces.csproj" />
+    <ProjectReference Include="..\TicTacToe.Core\TicTacToe.Core.csproj" />
   </ItemGroup>
 
 </Project>

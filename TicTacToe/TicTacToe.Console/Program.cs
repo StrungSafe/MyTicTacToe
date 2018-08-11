@@ -14,6 +14,7 @@
             {
                 DependencyRegistration.Register();
                 service = WindsorContainer.Instance.Resolve<ITicTacToeConsoleService>();
+                service.Run();
             }
             catch (Exception ex)
             {
