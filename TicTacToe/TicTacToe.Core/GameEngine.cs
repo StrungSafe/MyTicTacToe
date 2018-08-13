@@ -49,7 +49,7 @@
 
         private void UpdateGameState(GameBoardState newGameBoardState)
         {
-            if (GameState == GameState.NewGameXMove || GameState == GameState.XMove)
+            if (GameState.HasFlag(GameState.XMove))
             {
                 GameState = GameState.OMove;
             }

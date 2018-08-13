@@ -1,17 +1,24 @@
 ﻿namespace TicTacToe.Core.Interfaces
 {
+    using System;
+
+    [Flags]
     public enum GameState
     {
-        NewGameXMove,
+        Active = 2,
 
-        XMove,
+        GameOver = 4,
 
-        OMove,
+        NewGameXMove = 11,
 
-        XWinner,
+        OMove = 18,
 
-        OWinner,
+        OWinner = 20,
 
-        Tie
+        Tie = 28,
+
+        XMove = 10,
+
+        XWinner = 12
     }
 }

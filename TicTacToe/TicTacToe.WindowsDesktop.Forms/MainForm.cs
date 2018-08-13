@@ -65,8 +65,7 @@
 
         private void CheckForEndOfGame()
         {
-            if (gameEngine.GameState == GameState.XWinner || gameEngine.GameState == GameState.OWinner ||
-                gameEngine.GameState == GameState.Tie)
+            if (gameEngine.GameState.HasFlag(GameState.GameOver))
             {
                 EnableGameBoard(false);
             }
@@ -124,7 +123,7 @@
 
         private Player GetCurrentPlayer()
         {
-            if (gameEngine.GameState == GameState.NewGameXMove || gameEngine.GameState == GameState.XMove)
+            if (gameEngine.GameState.HasFlag(GameState.XMove))
             {
                 return Player.X;
             }

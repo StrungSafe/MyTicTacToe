@@ -31,7 +31,7 @@
 
         private bool IsGameOver(GameState gameState)
         {
-            return gameState == GameState.XWinner || gameState == GameState.OWinner || gameState == GameState.Tie;
+            return gameState.HasFlag(GameState.GameOver);
         }
 
         private bool IsMoveLocationOccupied(Move move, GameBoardMark[,] gameBoard)
@@ -50,8 +50,7 @@
         private bool NotPlayerTurn(Move move, GameState gameState)
         {
             return move.Player == Player.X && gameState == GameState.OMove ||
-                   move.Player == Player.O && gameState == GameState.NewGameXMove ||
-                   move.Player == Player.O && gameState == GameState.XMove;
+                   move.Player == Player.O && gameState.HasFlag(GameState.XMove);
         }
     }
 }

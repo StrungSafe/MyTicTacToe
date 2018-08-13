@@ -26,8 +26,7 @@
                 Clear();
                 Draw(gameEngine.GameBoard);
                 MakeMove();
-            } while (gameEngine.GameState == GameState.NewGameXMove || gameEngine.GameState == GameState.XMove ||
-                     gameEngine.GameState == GameState.OMove);
+            } while (gameEngine.GameState.HasFlag(GameState.Active));
 
             Clear();
             PrintEndOfGameState();
@@ -71,7 +70,7 @@
 
         private string GetGameState()
         {
-            if (gameEngine.GameState == GameState.NewGameXMove || gameEngine.GameState == GameState.XMove)
+            if (gameEngine.GameState.HasFlag(GameState.XMove))
             {
                 return "X";
             }
@@ -101,7 +100,7 @@
 
         private Player GetPlayer()
         {
-            if (gameEngine.GameState == GameState.NewGameXMove || gameEngine.GameState == GameState.XMove)
+            if (gameEngine.GameState.HasFlag(GameState.XMove))
             {
                 return Player.X;
             }
