@@ -2,6 +2,6 @@
 {
     public interface IMoveValidator
     {
-        bool IsValidMove();
+        bool IsValidMove(Move move, GameState gameState, GameBoardMark[,] gameBoard);
     }
 }

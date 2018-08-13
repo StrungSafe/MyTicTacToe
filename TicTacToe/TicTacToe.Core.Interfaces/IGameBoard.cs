@@ -2,10 +2,10 @@
 {
     public interface IGameBoard
     {
-        GameBoardMark[,] GameBoard { get; }
+        GameBoardMark[,] Board { get; }
 
         void Clear();
 
-        void PlaceMarker();
+        void PlaceMarker(Move move);
     }
 }

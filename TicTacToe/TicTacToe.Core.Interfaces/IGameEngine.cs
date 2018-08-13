@@ -6,7 +6,7 @@
 
         GameState GameState { get; }
 
-        bool MakeMove();
+        bool MakeMove(Move move);
 
         void NewGame();
     }

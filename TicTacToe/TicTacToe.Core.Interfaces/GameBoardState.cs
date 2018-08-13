@@ -2,7 +2,7 @@
 {
     public enum GameBoardState
     {
-        Open,
+        Active,
 
         XWinner,
 

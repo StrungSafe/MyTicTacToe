@@ -20,20 +20,20 @@
             NewGame();
         }
 
-        public GameBoardMark[,] GameBoard => gameBoard.GameBoard;
+        public GameBoardMark[,] GameBoard => gameBoard.Board;
 
         public GameState GameState { get; private set; }
 
-        public bool MakeMove()
+        public bool MakeMove(Move move)
         {
-            if (!moveValidator.IsValidMove())
+            if (!moveValidator.IsValidMove(move, GameState, GameBoard))
             {
                 return false;
             }
 
-            gameBoard.PlaceMarker();
+            gameBoard.PlaceMarker(move);
 
-            GameBoardState gameBoardState = gameBoardAnalyzer.AnalyzeGameBoard();
+            GameBoardState gameBoardState = gameBoardAnalyzer.AnalyzeGameBoard(GameBoard);
 
             UpdateGameState(gameBoardState);
 
@@ -49,7 +49,7 @@
 
         private void UpdateGameState(GameBoardState newGameBoardState)
         {
-            if (GameState == GameState.NewGameXMove || GameState == GameState.XMove)
+            if (GameState.HasFlag(GameState.XMove))
             {
                 GameState = GameState.OMove;
             }
