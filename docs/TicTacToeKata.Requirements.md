@@ -14,5 +14,4 @@ The tic-tac-toe program is simple enough to be be completed by novice developers
   * horizontally
   * diagonally
 * Unit tests
-* Game should have no user interface
 * [See Wiki for more information about Tic-Tac-Toe](https://en.wikipedia.org/wiki/Tic-tac-toe)
