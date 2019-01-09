@@ -1,7 +1,8 @@
 ﻿namespace TicTacToe.Core.Tests
 {
-    using Interfaces;
     using NUnit.Framework;
+
+    using TicTacToe.Core.Interfaces;
 
     [TestFixture]
     public class TestGameBoardAnalyzer
@@ -82,154 +83,58 @@
         {
             public static readonly GameBoardMark[,] Active =
             {
-                {
-                    GameBoardMark.Empty,
-                    GameBoardMark.Empty,
-                    GameBoardMark.Empty
-                },
-                {
-                    GameBoardMark.Empty,
-                    GameBoardMark.Empty,
-                    GameBoardMark.Empty
-                },
-                {
-                    GameBoardMark.Empty,
-                    GameBoardMark.Empty,
-                    GameBoardMark.Empty
-                }
+                { GameBoardMark.Empty, GameBoardMark.Empty, GameBoardMark.Empty },
+                { GameBoardMark.Empty, GameBoardMark.Empty, GameBoardMark.Empty },
+                { GameBoardMark.Empty, GameBoardMark.Empty, GameBoardMark.Empty }
             };
 
             public static readonly GameBoardMark[,] BackwardDiagonalWin =
             {
-                {
-                    GameBoardMark.X,
-                    GameBoardMark.O,
-                    GameBoardMark.Empty
-                },
-                {
-                    GameBoardMark.O,
-                    GameBoardMark.X,
-                    GameBoardMark.Empty
-                },
-                {
-                    GameBoardMark.O,
-                    GameBoardMark.Empty,
-                    GameBoardMark.X
-                }
+                { GameBoardMark.X, GameBoardMark.O, GameBoardMark.Empty },
+                { GameBoardMark.O, GameBoardMark.X, GameBoardMark.Empty },
+                { GameBoardMark.O, GameBoardMark.Empty, GameBoardMark.X }
             };
 
             public static readonly GameBoardMark[,] ForwardDiagonalWin =
             {
-                {
-                    GameBoardMark.O,
-                    GameBoardMark.Empty,
-                    GameBoardMark.X
-                },
-                {
-                    GameBoardMark.O,
-                    GameBoardMark.X,
-                    GameBoardMark.Empty
-                },
-                {
-                    GameBoardMark.X,
-                    GameBoardMark.O,
-                    GameBoardMark.Empty
-                }
+                { GameBoardMark.O, GameBoardMark.Empty, GameBoardMark.X },
+                { GameBoardMark.O, GameBoardMark.X, GameBoardMark.Empty },
+                { GameBoardMark.X, GameBoardMark.O, GameBoardMark.Empty }
             };
 
             public static readonly GameBoardMark[,] HorizontalWin =
             {
-                {
-                    GameBoardMark.X,
-                    GameBoardMark.X,
-                    GameBoardMark.X
-                },
-                {
-                    GameBoardMark.O,
-                    GameBoardMark.O,
-                    GameBoardMark.Empty
-                },
-                {
-                    GameBoardMark.O,
-                    GameBoardMark.Empty,
-                    GameBoardMark.Empty
-                }
+                { GameBoardMark.X, GameBoardMark.X, GameBoardMark.X },
+                { GameBoardMark.O, GameBoardMark.O, GameBoardMark.Empty },
+                { GameBoardMark.O, GameBoardMark.Empty, GameBoardMark.Empty }
             };
 
             public static readonly GameBoardMark[,] OWinner =
             {
-                {
-                    GameBoardMark.Empty,
-                    GameBoardMark.X,
-                    GameBoardMark.O
-                },
-                {
-                    GameBoardMark.X,
-                    GameBoardMark.O,
-                    GameBoardMark.Empty
-                },
-                {
-                    GameBoardMark.O,
-                    GameBoardMark.Empty,
-                    GameBoardMark.Empty
-                }
+                { GameBoardMark.Empty, GameBoardMark.X, GameBoardMark.O },
+                { GameBoardMark.X, GameBoardMark.O, GameBoardMark.Empty },
+                { GameBoardMark.O, GameBoardMark.Empty, GameBoardMark.Empty }
             };
 
             public static readonly GameBoardMark[,] TieGame =
             {
-                {
-                    GameBoardMark.X,
-                    GameBoardMark.O,
-                    GameBoardMark.X
-                },
-                {
-                    GameBoardMark.O,
-                    GameBoardMark.O,
-                    GameBoardMark.X
-                },
-                {
-                    GameBoardMark.X,
-                    GameBoardMark.X,
-                    GameBoardMark.O
-                }
+                { GameBoardMark.X, GameBoardMark.O, GameBoardMark.X },
+                { GameBoardMark.O, GameBoardMark.O, GameBoardMark.X },
+                { GameBoardMark.X, GameBoardMark.X, GameBoardMark.O }
             };
 
             public static readonly GameBoardMark[,] VerticalWin =
             {
-                {
-                    GameBoardMark.X,
-                    GameBoardMark.O,
-                    GameBoardMark.O
-                },
-                {
-                    GameBoardMark.X,
-                    GameBoardMark.Empty,
-                    GameBoardMark.Empty
-                },
-                {
-                    GameBoardMark.X,
-                    GameBoardMark.Empty,
-                    GameBoardMark.O
-                }
+                { GameBoardMark.X, GameBoardMark.O, GameBoardMark.O },
+                { GameBoardMark.X, GameBoardMark.Empty, GameBoardMark.Empty },
+                { GameBoardMark.X, GameBoardMark.Empty, GameBoardMark.O }
             };
 
             public static readonly GameBoardMark[,] XWinner =
             {
-                {
-                    GameBoardMark.Empty,
-                    GameBoardMark.O,
-                    GameBoardMark.X
-                },
-                {
-                    GameBoardMark.O,
-                    GameBoardMark.X,
-                    GameBoardMark.Empty
-                },
-                {
-                    GameBoardMark.X,
-                    GameBoardMark.Empty,
-                    GameBoardMark.Empty
-                }
+                { GameBoardMark.Empty, GameBoardMark.O, GameBoardMark.X },
+                { GameBoardMark.O, GameBoardMark.X, GameBoardMark.Empty },
+                { GameBoardMark.X, GameBoardMark.Empty, GameBoardMark.Empty }
             };
         }
     }

@@ -3,6 +3,7 @@
     using System;
     using System.IO;
     using System.Reflection;
+
     using Castle.MicroKernel.Registration;
     using Castle.Windsor.Installer;
 
