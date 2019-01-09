@@ -31,7 +31,7 @@ export default props => (
         </LinkContainer>
         <LinkContainer to={'/tictactoe'}>
           <NavItem>
-            <Glyphicon glyph='th-list' /> TicTacToe
+            <Glyphicon glyph='king' /> TicTacToe
           </NavItem>
         </LinkContainer>
       </Nav>
