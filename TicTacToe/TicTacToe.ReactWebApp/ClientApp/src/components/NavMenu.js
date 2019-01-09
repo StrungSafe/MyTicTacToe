@@ -29,6 +29,11 @@ export default props => (
             <Glyphicon glyph='th-list' /> Fetch data
           </NavItem>
         </LinkContainer>
+        <LinkContainer to={'/TicTacToe'}>
+          <NavItem>
+            <Glyphicon glyph='th-list' /> TicTacToe
+          </NavItem>
+        </LinkContainer>
       </Nav>
     </Navbar.Collapse>
   </Navbar>
