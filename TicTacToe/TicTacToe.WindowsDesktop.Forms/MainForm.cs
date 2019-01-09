@@ -3,9 +3,8 @@
     using System;
     using System.Threading.Tasks;
     using System.Windows.Forms;
-
-    using TicTacToe.Core.Interfaces;
-    using TicTacToe.WindowsDesktop.Forms.CastleWindsor;
+    using CastleWindsor;
+    using Core.Interfaces;
 
     public partial class MainForm : Form
     {

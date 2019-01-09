@@ -1,8 +1,7 @@
 ﻿namespace TicTacToe.Core.Tests
 {
+    using Interfaces;
     using NUnit.Framework;
-
-    using TicTacToe.Core.Interfaces;
 
     [TestFixture]
     public class TestMoveValidator
@@ -29,8 +28,10 @@
         [TestCase(GameBoardMark.O)]
         public void IsValidMove_WhenMoveLocationOccupied_ReturnsFalse(GameBoardMark gameBoardMark)
         {
-            bool actual = systemUnderTest.IsValidMove(new Move(Player.X, 0, 0), GameState.NewGameXMove,
-                new[,] { { gameBoardMark } });
+            bool actual = systemUnderTest.IsValidMove(new Move(Player.X, 0, 0), GameState.NewGameXMove, new[,]
+            {
+                { gameBoardMark }
+            });
 
             Assert.IsFalse(actual);
         }

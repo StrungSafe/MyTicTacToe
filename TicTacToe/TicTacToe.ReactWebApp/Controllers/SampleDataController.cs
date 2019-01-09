@@ -1,15 +1,15 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+
 namespace TicTacToe.ReactWebApp.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-
-    using Microsoft.AspNetCore.Mvc;
-
     [Route("api/[controller]")]
     public class SampleDataController : Controller
     {
-        private static readonly string[] Summaries =
+        private static string[] Summaries = new[]
         {
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         };
@@ -19,22 +19,18 @@ namespace TicTacToe.ReactWebApp.Controllers
         {
             var rng = new Random();
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
-                                                          {
-                                                              DateFormatted =
-                                                                  DateTime.Now.AddDays(index + startDateIndex)
-                                                                          .ToString("d"),
-                                                              TemperatureC = rng.Next(-20, 55),
-                                                              Summary = Summaries[rng.Next(Summaries.Length)]
-                                                          });
+            {
+                DateFormatted = DateTime.Now.AddDays(index + startDateIndex).ToString("d"),
+                TemperatureC = rng.Next(-20, 55),
+                Summary = Summaries[rng.Next(Summaries.Length)]
+            });
         }
 
         public class WeatherForecast
         {
             public string DateFormatted { get; set; }
-
-            public string Summary { get; set; }
-
             public int TemperatureC { get; set; }
+            public string Summary { get; set; }
 
             public int TemperatureF
             {
