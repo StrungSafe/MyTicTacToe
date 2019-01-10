@@ -10,19 +10,19 @@ const TicTacToe = props => (
 
     <p>This is a simple example of a TicTacToe game using React.</p>
 
-    <table>
+    <table class='table'>
       <tbody>
-        <tr>
+        <tr class='row'>
           <td><button></button></td>
           <td><button></button></td>
           <td><button></button></td>
         </tr>
-        <tr>
+        <tr class='row'>
           <td><button></button></td>
           <td><button></button></td>
           <td><button></button></td>
         </tr>
-        <tr>
+        <tr class='row'>
           <td><button></button></td>
           <td><button></button></td>
           <td><button></button></td>
