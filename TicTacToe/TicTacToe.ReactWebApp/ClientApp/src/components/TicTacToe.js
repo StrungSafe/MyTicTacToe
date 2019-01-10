@@ -2,16 +2,33 @@ import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { actionCreators } from '../store/TicTacToe';
+import './TicTacToe.css';
 
 const TicTacToe = props => (
   <div>
     <h1>TicTacToe</h1>
 
-    <p>This is a simple example of a React component.</p>
+    <p>This is a simple example of a TicTacToe game using React.</p>
 
-    <p>Current count: <strong>{props.count}</strong></p>
-
-    <button onClick={props.increment}>Increment</button>
+    <table>
+      <tbody>
+        <tr>
+          <td><button></button></td>
+          <td><button></button></td>
+          <td><button></button></td>
+        </tr>
+        <tr>
+          <td><button></button></td>
+          <td><button></button></td>
+          <td><button></button></td>
+        </tr>
+        <tr>
+          <td><button></button></td>
+          <td><button></button></td>
+          <td><button></button></td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 );
 
