@@ -29,6 +29,10 @@ const TicTacToe = props => (
         </tr>
       </tbody>
     </table>
+
+    <p className='gameStatus'>Game Status: <strong>{props.gameStatus}</strong></p>
+
+    <button className='newGameBtn' onClick={props.newGameBtn_Click}>New Game</button>
   </div>
 );
 
