@@ -19,9 +19,8 @@ function makeMove(x, y) {
 export const reducer = (state, action) => {
   state = state || initialState;
 
-    if (action.type == 'move') {
+  if (action.type === 'move') {
         makeMove(action.x, action.y);
-    return { ...state };
   }
 
   return state;

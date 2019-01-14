@@ -1,9 +1,9 @@
-﻿button {
-    width: 75px; 
-    height: 75px;
-}
-
-.table {
+﻿.ticTacToeGameBoard {
     width: 150px;
     height: 150px;
+}
+
+.ticTacToeGameBoard td {
+    border: 1px;
+    border-style: solid;
 }
