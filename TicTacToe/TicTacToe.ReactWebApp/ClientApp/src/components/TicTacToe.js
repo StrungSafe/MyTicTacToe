@@ -5,7 +5,7 @@ import { actionCreators } from '../store/TicTacToe';
 import './TicTacToe.css';
 
 const TicTacToe = props => (
-  <div>
+  <div id='ticTacToeGame'>
     <h1>TicTacToe</h1>
 
     <p>This is a simple example of a TicTacToe game using React.</p>
