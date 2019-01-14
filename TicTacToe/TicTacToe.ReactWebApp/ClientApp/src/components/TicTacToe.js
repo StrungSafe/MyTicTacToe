@@ -33,6 +33,6 @@ const TicTacToe = props => (
 );
 
 export default connect(
-  state => state.tictactoe,
+  state => state.ticTacToe,
   dispatch => bindActionCreators(actionCreators, dispatch)
 )(TicTacToe);
