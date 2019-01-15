@@ -1,42 +1,125 @@
 ﻿const initialState = { gameStatus: 'Starting', p1Btn_Value: '', p2Btn_Value: '', p3Btn_Value: '', p4Btn_Value: '', p5Btn_Value: '', p6Btn_Value: '', p7Btn_Value: '', p8Btn_Value: '', p9Btn_Value: '' };
 
 export const actionCreators = {
-    p1Btn_Click: () => ({ type: 'move', x: 0, y: 0 }),
-    p2Btn_Click: () => ({ type: 'move', x: 1, y: 0 }),
-    p3Btn_Click: () => ({ type: 'move', x: 2, y: 0 }),
-    p4Btn_Click: () => ({ type: 'move', x: 0, y: 1 }),
-    p5Btn_Click: () => ({ type: 'move', x: 1, y: 1 }),
-    p6Btn_Click: () => ({ type: 'move', x: 2, y: 1 }),
-    p7Btn_Click: () => ({ type: 'move', x: 0, y: 2 }),
-    p8Btn_Click: () => ({ type: 'move', x: 1, y: 2 }),
-    p9Btn_Click: () => ({ type: 'move', x: 2, y: 2 }),
+    p1Btn_Click: () => async (dispatch, getState) => {
+        const url = 'api/TicTacToe/MakeMove?column=0&row=0';
+        var data;
+        await fetch(url).then(response => response.json()).then(results => { data = results; });
+
+        dispatch({ type: 'makeMove', success: data.success, gameStatus: data.gameState, gameBoard: data.gameBoard });
+    },
+    p2Btn_Click: () => async (dispatch, getState) => {
+        const url = 'api/TicTacToe/MakeMove?column=1&row=0';
+        var data;
+        await fetch(url).then(response => response.json()).then(results => { data = results; });
+
+        dispatch({ type: 'makeMove', success: data.success, gameStatus: data.gameState, gameBoard: data.gameBoard });
+    },
+    p3Btn_Click: () => async (dispatch, getState) => {
+        const url = 'api/TicTacToe/MakeMove?column=2&row=0';
+        var data;
+        await fetch(url).then(response => response.json()).then(results => { data = results; });
+
+        dispatch({ type: 'makeMove', success: data.success, gameStatus: data.gameState, gameBoard: data.gameBoard });
+    },
+    p4Btn_Click: () => async (dispatch, getState) => {
+        const url = 'api/TicTacToe/MakeMove?column=0&row=1';
+        var data;
+        await fetch(url).then(response => response.json()).then(results => { data = results; });
+
+        dispatch({ type: 'makeMove', success: data.success, gameStatus: data.gameState, gameBoard: data.gameBoard });
+    },
+    p5Btn_Click: () => async (dispatch, getState) => {
+        const url = 'api/TicTacToe/MakeMove?column=1&row=1';
+        var data;
+        await fetch(url).then(response => response.json()).then(results => { data = results; });
+
+        dispatch({ type: 'makeMove', success: data.success, gameStatus: data.gameState, gameBoard: data.gameBoard });
+    },
+    p6Btn_Click: () => async (dispatch, getState) => {
+        const url = 'api/TicTacToe/MakeMove?column=2&row=1';
+        var data;
+        await fetch(url).then(response => response.json()).then(results => { data = results; });
+
+        dispatch({ type: 'makeMove', success: data.success, gameStatus: data.gameState, gameBoard: data.gameBoard });
+    },
+    p7Btn_Click: () => async (dispatch, getState) => {
+        const url = 'api/TicTacToe/MakeMove?column=0&row=2';
+        var data;
+        await fetch(url).then(response => response.json()).then(results => { data = results; });
+
+        dispatch({ type: 'makeMove', success: data.success, gameStatus: data.gameState, gameBoard: data.gameBoard });
+    },
+    p8Btn_Click: () => async (dispatch, getState) => {
+        const url = 'api/TicTacToe/MakeMove?column=1&row=2';
+        var data;
+        await fetch(url).then(response => response.json()).then(results => { data = results; });
+
+        dispatch({ type: 'makeMove', success: data.success, gameStatus: data.gameState, gameBoard: data.gameBoard });
+    },
+    p9Btn_Click: () => async (dispatch, getState) => {
+        const url = 'api/TicTacToe/MakeMove?column=2&row=2';
+        var data;
+        await fetch(url).then(response => response.json()).then(results => { data = results; });
+
+        dispatch({ type: 'makeMove', success: data.success, gameStatus: data.gameState, gameBoard: data.gameBoard });
+    },
 
     newGameBtn_Click: () => async (dispatch, getState) => {
-        if ('Starting' === getState().gameStatus | 'Ready' === getState().gameStatus) {
-            return;
-        }
-
         const url = 'api/TicTacToe/NewGame';
-        await fetch(url).then(response => response.json()).then(result => alert(result.gameState));
+        var data;
+        await fetch(url).then(response => response.json()).then(results => { data = results; });
 
-        dispatch({ type: 'newGame' });
+        dispatch({ type: 'newGame', success: data.success, gameStatus: data.gameState, gameBoard: data.gameBoard });
     }
 };
 
 export const reducer = (state, action) => {
-  state = state || initialState;
+    state = state || initialState;
+    
+    if (action.type === 'newGame') {
+        return {
+            ...state,
+            gameStatus: action.gameStatus,
+            p1Btn_Value: convertGameBoardMark(action.gameBoard[0][0]),
+            p2Btn_Value: convertGameBoardMark(action.gameBoard[1][0]),
+            p3Btn_Value: convertGameBoardMark(action.gameBoard[2][0]),
+            p4Btn_Value: convertGameBoardMark(action.gameBoard[0][1]),
+            p5Btn_Value: convertGameBoardMark(action.gameBoard[1][1]),
+            p6Btn_Value: convertGameBoardMark(action.gameBoard[2][1]),
+            p7Btn_Value: convertGameBoardMark(action.gameBoard[0][2]),
+            p8Btn_Value: convertGameBoardMark(action.gameBoard[1][2]),
+            p9Btn_Value: convertGameBoardMark(action.gameBoard[2][2])
+        }
+    }
 
-  if (action.type === 'newGame') {
-    state = initialState;
-  }
-
-  if (state === initialState) {
-    return { ...state, gameStatus: 'Ready' };
-  }
-
-  if (action.type === 'move') {
-      return {...state, gameStatus: 'In Progress'}
-  }
-
-  return state;
+    if (action.type === 'makeMove') {
+        return {
+            ...state,
+            gameStatus: action.gameStatus,
+            p1Btn_Value: convertGameBoardMark(action.gameBoard[0][0]),
+            p2Btn_Value: convertGameBoardMark(action.gameBoard[1][0]),
+            p3Btn_Value: convertGameBoardMark(action.gameBoard[2][0]),
+            p4Btn_Value: convertGameBoardMark(action.gameBoard[0][1]),
+            p5Btn_Value: convertGameBoardMark(action.gameBoard[1][1]),
+            p6Btn_Value: convertGameBoardMark(action.gameBoard[2][1]),
+            p7Btn_Value: convertGameBoardMark(action.gameBoard[0][2]),
+            p8Btn_Value: convertGameBoardMark(action.gameBoard[1][2]),
+            p9Btn_Value: convertGameBoardMark(action.gameBoard[2][2])
+        }
+    }
+    
+    return state;
 };
+
+function convertGameBoardMark(value) {
+    if (value === 0) {
+        return '';
+    }
+
+    if (value === 1) {
+        return 'X';
+    }
+
+    return 'O';
+}
