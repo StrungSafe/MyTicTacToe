@@ -16,6 +16,8 @@
 
         [TestCase(2, 0, 2)]
         [TestCase(2, 2, 0)]
+        [TestCase(2, -1, 0)]
+        [TestCase(2, 0, -1)]
         public void IsValidMove_WhenMoveExceedsBoard_ReturnsFalse(int size, int row, int column)
         {
             bool actual = systemUnderTest.IsValidMove(new Move(Player.X, row, column), GameState.NewGameXMove,

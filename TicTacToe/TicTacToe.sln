@@ -11,9 +11,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TicTacToe.Core.Interfaces",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicTacToe.WindowsDesktop.Forms", "TicTacToe.WindowsDesktop.Forms\TicTacToe.WindowsDesktop.Forms.csproj", "{D41FA4DF-CE1C-4B8C-B085-E8CD1FCF7ECF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicTacToe.Console", "TicTacToe.Console\TicTacToe.Console.csproj", "{6E16E3F0-5FE3-4287-A026-EEBA337D62CD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TicTacToe.Console", "TicTacToe.Console\TicTacToe.Console.csproj", "{6E16E3F0-5FE3-4287-A026-EEBA337D62CD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicTacToe.Console.Core", "TicTacToe.Console.Core\TicTacToe.Console.Core.csproj", "{5B05CFEF-85AE-47C6-93F9-BAD094733895}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TicTacToe.Console.Core", "TicTacToe.Console.Core\TicTacToe.Console.Core.csproj", "{5B05CFEF-85AE-47C6-93F9-BAD094733895}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicTacToe.ReactWebApp", "TicTacToe.ReactWebApp\TicTacToe.ReactWebApp.csproj", "{6CD83C9A-2F01-4BA7-B748-9B422C8126D9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +47,10 @@ Global
 		{5B05CFEF-85AE-47C6-93F9-BAD094733895}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5B05CFEF-85AE-47C6-93F9-BAD094733895}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5B05CFEF-85AE-47C6-93F9-BAD094733895}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6CD83C9A-2F01-4BA7-B748-9B422C8126D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CD83C9A-2F01-4BA7-B748-9B422C8126D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CD83C9A-2F01-4BA7-B748-9B422C8126D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CD83C9A-2F01-4BA7-B748-9B422C8126D9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
