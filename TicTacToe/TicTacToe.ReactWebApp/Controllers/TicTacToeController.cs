@@ -10,17 +10,17 @@
     [Route("api/[controller]")]
     public class TicTacToeController : Controller
     {
-        private readonly IGameEngine gameEngine = new GameEngine(new GameBoard(new ReactGameSettings()),
+        private static readonly IGameEngine GameEngine = new GameEngine(new GameBoard(new ReactGameSettings()),
             new MoveValidator(), new GameBoardAnalyzer());
 
         [HttpGet("[action]")]
-        public GameResult MakeMove(int row, int column)
+        public GameResult MakeMove(int gameId, int row, int column)
         {
             try
             {
                 Move move;
 
-                if (gameEngine.GameState == GameState.NewGameXMove || gameEngine.GameState == GameState.XMove)
+                if (GameEngine.GameState == GameState.NewGameXMove || GameEngine.GameState == GameState.XMove)
                 {
                     move = new Move(Player.X, row, column);
                 }
@@ -29,13 +29,13 @@
                     move = new Move(Player.O, row, column);
                 }
 
-                bool success = gameEngine.MakeMove(move);
+                bool success = GameEngine.MakeMove(move);
 
                 return new GameResult
                        {
                            Success = success,
-                           GameState = gameEngine.GameState.ToString(),
-                           GameBoard = gameEngine.GameBoard
+                           GameState = GameEngine.GameState.ToString(),
+                           GameBoard = GameEngine.GameBoard
                        };
             }
             catch (Exception)
@@ -49,10 +49,11 @@
         {
             try
             {
-                gameEngine.NewGame();
+                GameEngine.NewGame();
+
                 return new GameResult
                        {
-                           Success = true, GameState = gameEngine.GameState.ToString(), GameBoard = gameEngine.GameBoard
+                           Success = true, GameState = GameEngine.GameState.ToString(), GameBoard = GameEngine.GameBoard
                        };
             }
             catch (Exception)
