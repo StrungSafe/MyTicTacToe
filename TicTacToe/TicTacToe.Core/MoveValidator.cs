@@ -44,7 +44,7 @@
             int row = gameBoard.GetLength(0);
             int column = gameBoard.GetLength(1);
 
-            return move.Row + 1 > row || move.Column + 1 > column;
+            return move.Row < 0 || move.Column < 0 || move.Row >= row || move.Column >= column;
         }
 
         private bool NotPlayerTurn(Move move, GameState gameState)

@@ -1,6 +1,7 @@
 ﻿namespace TicTacToe.WindowsDesktop.Forms
 {
     using System;
+    using System.Threading.Tasks;
     using System.Windows.Forms;
     using CastleWindsor;
     using Core.Interfaces;
@@ -18,50 +19,23 @@
             NewGame();
         }
 
-        private void button1_Click(object sender, EventArgs e)
-        {
-            MakeMove(0, 0);
-        }
+        private async void button1_Click(object sender, EventArgs e) => await MakeMoveAsync(0, 0);
 
-        private void button2_Click(object sender, EventArgs e)
-        {
-            MakeMove(0, 1);
-        }
+        private async void button2_Click(object sender, EventArgs e) => await MakeMoveAsync(0, 1);
 
-        private void button3_Click(object sender, EventArgs e)
-        {
-            MakeMove(0, 2);
-        }
+        private async void button3_Click(object sender, EventArgs e) => await MakeMoveAsync(0, 2);
 
-        private void button4_Click(object sender, EventArgs e)
-        {
-            MakeMove(1, 0);
-        }
+        private async void button4_Click(object sender, EventArgs e) => await MakeMoveAsync(1, 0);
 
-        private void button5_Click(object sender, EventArgs e)
-        {
-            MakeMove(1, 1);
-        }
+        private async void button5_Click(object sender, EventArgs e) => await MakeMoveAsync(1, 1);
 
-        private void button6_Click(object sender, EventArgs e)
-        {
-            MakeMove(1, 2);
-        }
+        private async void button6_Click(object sender, EventArgs e) => await MakeMoveAsync(1, 2);
 
-        private void button7_Click(object sender, EventArgs e)
-        {
-            MakeMove(2, 0);
-        }
+        private async void button7_Click(object sender, EventArgs e) => await MakeMoveAsync(2, 0);
 
-        private void button8_Click(object sender, EventArgs e)
-        {
-            MakeMove(2, 1);
-        }
+        private async void button8_Click(object sender, EventArgs e) => await MakeMoveAsync(2, 1);
 
-        private void button9_Click(object sender, EventArgs e)
-        {
-            MakeMove(2, 2);
-        }
+        private async void button9_Click(object sender, EventArgs e) => await MakeMoveAsync(2, 2);
 
         private void CheckForEndOfGame()
         {
@@ -90,17 +64,17 @@
 
             if (gameBoardMark == GameBoardMark.Empty)
             {
-                button.Text = "";
+                SetText(button, "");
             }
             else if (gameBoardMark == GameBoardMark.X)
             {
-                button.Text = "X";
-                button.Enabled = false;
+                SetText(button, "X");
+                SetEnabled(button, false);
             }
             else if (gameBoardMark == GameBoardMark.O)
             {
-                button.Text = "O";
-                button.Enabled = false;
+                SetText(button, "O");
+                SetEnabled(button, false);
             }
             else
             {
@@ -110,15 +84,15 @@
 
         private void EnableGameBoard(bool enabled)
         {
-            button1.Enabled = enabled;
-            button2.Enabled = enabled;
-            button3.Enabled = enabled;
-            button4.Enabled = enabled;
-            button5.Enabled = enabled;
-            button6.Enabled = enabled;
-            button7.Enabled = enabled;
-            button8.Enabled = enabled;
-            button9.Enabled = enabled;
+            SetEnabled(button1, enabled);
+            SetEnabled(button2, enabled);
+            SetEnabled(button3, enabled);
+            SetEnabled(button4, enabled);
+            SetEnabled(button5, enabled);
+            SetEnabled(button6, enabled);
+            SetEnabled(button7, enabled);
+            SetEnabled(button8, enabled);
+            SetEnabled(button9, enabled);
         }
 
         private Player GetCurrentPlayer()
@@ -149,6 +123,13 @@
             }
         }
 
+        private Task MakeMoveAsync(int row, int column)
+        {
+            var task = new Task(() => { MakeMove(row, column); });
+            task.Start();
+            return task;
+        }
+
         private void NewGame()
         {
             gameEngine.NewGame();
@@ -160,6 +141,30 @@
         private void NewGameButton_Click(object sender, EventArgs e)
         {
             NewGame();
+        }
+
+        private void SetEnabled(Button button, bool enabled)
+        {
+            if (button.InvokeRequired)
+            {
+                button.Invoke(new MethodInvoker(() => SetEnabled(button, enabled)));
+            }
+            else
+            {
+                button.Enabled = enabled;
+            }
+        }
+
+        private void SetText(Button button, string text)
+        {
+            if (button.InvokeRequired)
+            {
+                button.Invoke(new MethodInvoker(() => SetText(button, text)));
+            }
+            else
+            {
+                button.Text = text;
+            }
         }
 
         ~MainForm()
