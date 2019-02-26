@@ -1,6 +1,6 @@
 ﻿namespace TicTacToe.WindowsDesktop.Forms
 {
-    using Core.Interfaces;
+    using TicTacToe.Core.Interfaces;
 
     public class FormsGameSettings : IGameSettings
     {
