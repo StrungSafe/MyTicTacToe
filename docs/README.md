@@ -42,6 +42,17 @@ This project contains the Windows Forms implementation of Tic-Tac-Toe.
 TicTacToe.WindowsDesktop.Forms.exe
 ```
 
+### TicTacToe.ReactWebApp
+
+This projects contain the [React](https://reactjs.org/) implementation of Tic-TacToe.
+
+## New Integrations
+
+### Interface Requirements
+
+The following interfaces must be satisifed for any new integrations:
+* IGameSettings
+
 ## Running the tests
 
 ### Unit Tests
