@@ -2,7 +2,8 @@
 {
     using System;
     using System.Windows.Forms;
-    using CastleWindsor;
+
+    using TicTacToe.WindowsDesktop.Forms.CastleWindsor;
 
     public static class Program
     {

@@ -1,9 +1,12 @@
 ﻿namespace TicTacToe.Core.Tests
 {
     using System;
-    using Interfaces;
+
     using NSubstitute;
+
     using NUnit.Framework;
+
+    using TicTacToe.Core.Interfaces;
 
     [TestFixture]
     public class TestGameEngine
@@ -48,15 +51,9 @@
         [Test]
         public void Constructor_WhenNullDependencyProvided_ThrowsException()
         {
-            Assert.Throws<ArgumentNullException>(
-                () =>
-                    NewGameEngine(null, moveValidatorMock, gameBoardAnalyzerMock));
-            Assert.Throws<ArgumentNullException>(
-                () =>
-                    NewGameEngine(gameBoardMock, null, gameBoardAnalyzerMock));
-            Assert.Throws<ArgumentNullException>(
-                () =>
-                    NewGameEngine(gameBoardMock, moveValidatorMock, null));
+            Assert.Throws<ArgumentNullException>(() => NewGameEngine(null, moveValidatorMock, gameBoardAnalyzerMock));
+            Assert.Throws<ArgumentNullException>(() => NewGameEngine(gameBoardMock, null, gameBoardAnalyzerMock));
+            Assert.Throws<ArgumentNullException>(() => NewGameEngine(gameBoardMock, moveValidatorMock, null));
         }
 
         [Test]
@@ -167,7 +164,7 @@
         }
 
         private IGameEngine NewGameEngine(IGameBoard gameBoard, IMoveValidator moveValidator,
-            IGameBoardAnalyzer gameBoardAnalyzer)
+                                          IGameBoardAnalyzer gameBoardAnalyzer)
         {
             return new GameEngine(gameBoard, moveValidator, gameBoardAnalyzer);
         }
