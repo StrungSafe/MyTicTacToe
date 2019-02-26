@@ -1,10 +1,8 @@
 ﻿namespace TicTacToe.Core.Tests
 {
+    using Interfaces;
     using NSubstitute;
-
     using NUnit.Framework;
-
-    using TicTacToe.Core.Interfaces;
 
     [TestFixture]
     public class TestGameBoard

@@ -1,6 +1,6 @@
 ﻿namespace TicTacToe.Core
 {
-    using TicTacToe.Core.Interfaces;
+    using Interfaces;
 
     public class MoveValidator : IMoveValidator
     {
@@ -49,8 +49,8 @@
 
         private bool NotPlayerTurn(Move move, GameState gameState)
         {
-            return move.Player == Player.X && gameState == GameState.OMove
-                   || move.Player == Player.O && gameState.HasFlag(GameState.XMove);
+            return move.Player == Player.X && gameState == GameState.OMove ||
+                   move.Player == Player.O && gameState.HasFlag(GameState.XMove);
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace TicTacToe.Core
 {
-    using TicTacToe.Core.Interfaces;
+    using Interfaces;
 
     public class GameBoardAnalyzer : IGameBoardAnalyzer
     {
@@ -95,7 +95,7 @@
             }
 
             gameBoardState = winningBackwardDiagonal && matchingMark == GameBoardMark.X ? GameBoardState.XWinner
-                                 : GameBoardState.OWinner;
+                : GameBoardState.OWinner;
 
             return winningBackwardDiagonal;
         }
@@ -135,15 +135,15 @@
             }
 
             gameBoardState = winningColumn && matchingMark == GameBoardMark.X ? GameBoardState.XWinner
-                                 : GameBoardState.OWinner;
+                : GameBoardState.OWinner;
 
             return winningColumn;
         }
 
         private bool TryWinningDiagonal(GameBoardMark[,] gameBoard, out GameBoardState gameBoardState)
         {
-            return TryWinningBackwardDiagonal(gameBoard, out gameBoardState)
-                   || TryWinningForwardDiagonal(gameBoard, out gameBoardState);
+            return TryWinningBackwardDiagonal(gameBoard, out gameBoardState) ||
+                   TryWinningForwardDiagonal(gameBoard, out gameBoardState);
         }
 
         private bool TryWinningForwardDiagonal(GameBoardMark[,] gameBoard, out GameBoardState gameBoardState)
@@ -171,7 +171,7 @@
             }
 
             gameBoardState = winningForwardDiagonal && matchingMark == GameBoardMark.X ? GameBoardState.XWinner
-                                 : GameBoardState.OWinner;
+                : GameBoardState.OWinner;
 
             return winningForwardDiagonal;
         }
@@ -211,7 +211,7 @@
             }
 
             gameBoardState = winningRow && matchingMark == GameBoardMark.X ? GameBoardState.XWinner
-                                 : GameBoardState.OWinner;
+                : GameBoardState.OWinner;
 
             return winningRow;
         }

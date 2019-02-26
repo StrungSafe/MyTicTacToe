@@ -1,9 +1,8 @@
 ﻿namespace TicTacToe.Console
 {
     using System;
-
-    using TicTacToe.Console.CastleWindsor;
-    using TicTacToe.Console.Core;
+    using CastleWindsor;
+    using Core;
 
     public class Program
     {

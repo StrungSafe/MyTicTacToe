@@ -1,7 +1,6 @@
 ﻿namespace TicTacToe.Console.Core
 {
     using System;
-
     using TicTacToe.Core.Interfaces;
 
     public class TicTacToeConsoleProvider : ITicTacToeConsoleService
@@ -13,7 +12,7 @@
         private readonly IGameEngine gameEngine;
 
         public TicTacToeConsoleProvider(IGameEngine gameEngine, IConsoleOutput consoleOutput,
-                                        IConsoleInput consoleInput)
+            IConsoleInput consoleInput)
         {
             this.gameEngine = gameEngine;
             this.consoleOutput = consoleOutput;
@@ -27,8 +26,7 @@
                 Clear();
                 Draw(gameEngine.GameBoard);
                 MakeMove();
-            }
-            while (gameEngine.GameState.HasFlag(GameState.Active));
+            } while (gameEngine.GameState.HasFlag(GameState.Active));
 
             Clear();
             PrintEndOfGameState();

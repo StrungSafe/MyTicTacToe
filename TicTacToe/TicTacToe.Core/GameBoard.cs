@@ -1,6 +1,6 @@
 ﻿namespace TicTacToe.Core
 {
-    using TicTacToe.Core.Interfaces;
+    using Interfaces;
 
     public class GameBoard : IGameBoard
     {

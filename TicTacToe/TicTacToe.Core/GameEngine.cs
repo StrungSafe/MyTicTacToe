@@ -1,8 +1,7 @@
 ﻿namespace TicTacToe.Core
 {
     using System;
-
-    using TicTacToe.Core.Interfaces;
+    using Interfaces;
 
     public class GameEngine : IGameEngine
     {
