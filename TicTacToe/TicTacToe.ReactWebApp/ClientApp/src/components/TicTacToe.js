@@ -6,9 +6,9 @@ import './TicTacToe.css';
 
 const TicTacToe = props => (
   <div id='ticTacToeGame'>
-    <h1>TicTacToe</h1>
+    <h1>My TicTacToe Kata</h1>
 
-    <p>This is a simple example of a TicTacToe game using React.</p>
+    <p>This is a TicTacToe game that uses React for the front-end and dotnet for the back-end.</p>
 
     <table className='ticTacToeGameBoard'>
       <tbody>
