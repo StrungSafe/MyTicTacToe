@@ -7,6 +7,9 @@ namespace TicTacToe.ReactWebApp
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
 
+    using TicTacToe.Core;
+    using TicTacToe.Core.Interfaces;
+
     public class Startup
     {
         public Startup(IConfiguration configuration)
@@ -64,8 +67,14 @@ namespace TicTacToe.ReactWebApp
             });
 
             services.AddHttpContextAccessor();
+            
+            services.AddTransient<IGameEngine, GameEngine>();
+            services.AddTransient<IGameBoard, GameBoard>();
 
             services.AddSingleton<IGameEngineFactory, GameEngineFactory>();
+            services.AddSingleton<IGameSettings, ReactGameSettings>();
+            services.AddSingleton<IMoveValidator, MoveValidator>();
+            services.AddSingleton<IGameBoardAnalyzer, GameBoardAnalyzer>();
         }
     }
 }

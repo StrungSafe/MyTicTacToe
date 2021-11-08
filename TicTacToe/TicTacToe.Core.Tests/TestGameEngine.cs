@@ -43,6 +43,12 @@
         private IGameEngine systemUnderTest;
 
         [Test]
+        public void Constructor_WhenInvoked_CreatesEngineId()
+        {
+            Assert.That(systemUnderTest.Id, Is.Not.Empty.Or.Null);
+        }
+
+        [Test]
         public void Constructor_WhenInvoked_SetsNewGame()
         {
             AssertNewGame();
@@ -141,6 +147,16 @@
             InvokeMakeMove();
 
             Assert.That(systemUnderTest.GameState, Is.EqualTo(expected));
+        }
+
+        [Test]
+        public void NewGame_WhenInvoked_EngineIdDoesNotChange()
+        {
+            string expectedId = systemUnderTest.Id;
+
+            systemUnderTest.NewGame();
+
+            Assert.That(systemUnderTest.Id, Is.EqualTo(expectedId));
         }
 
         [Test]

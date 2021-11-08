@@ -10,6 +10,8 @@
 
         private readonly IGameBoardAnalyzer gameBoardAnalyzer;
 
+        private readonly Guid guid;
+
         private readonly IMoveValidator moveValidator;
 
         public GameEngine(IGameBoard gameBoard, IMoveValidator moveValidator, IGameBoardAnalyzer gameBoardAnalyzer)
@@ -18,12 +20,16 @@
             this.moveValidator = moveValidator ?? throw new ArgumentNullException(nameof(moveValidator));
             this.gameBoardAnalyzer = gameBoardAnalyzer ?? throw new ArgumentNullException(nameof(gameBoardAnalyzer));
 
+            guid = Guid.NewGuid();
+
             NewGame();
         }
 
         public GameBoardMark[,] GameBoard => gameBoard.Board;
 
         public GameState GameState { get; private set; }
+
+        public string Id => guid.ToString();
 
         public bool MakeMove(Move move)
         {

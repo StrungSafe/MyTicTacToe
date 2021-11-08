@@ -6,31 +6,35 @@
     using System.Timers;
 
     using Microsoft.AspNetCore.Http;
+    using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
 
-    using TicTacToe.Core;
     using TicTacToe.Core.Interfaces;
 
     public class GameEngineFactory : IGameEngineFactory, IDisposable
     {
-        private const string Key = "TicTacToe.ReactWebApp.GameEngineFactory.EngineId";
+        private const string Key = "TicTacToe.ReactWebApp.EngineId";
 
         private readonly IHttpContextAccessor accessor;
 
-        private readonly Dictionary<string, IGameEngine> engines = new Dictionary<string, IGameEngine>();
+        private readonly Dictionary<string, IGameEngine> engines = new();
 
-        private readonly Dictionary<string, bool> enginesLastRetrieved = new Dictionary<string, bool>();
+        private readonly Dictionary<string, bool> enginesLastRetrieved = new();
 
         private readonly double Interval = TimeSpan.FromMinutes(IdleTimeout.Default.TotalMinutes * 2).TotalMilliseconds;
 
         private readonly ILogger<GameEngineFactory> logger;
 
+        private readonly IServiceProvider serviceProvider;
+
         private readonly Timer timer;
 
-        public GameEngineFactory(ILogger<GameEngineFactory> logger, IHttpContextAccessor accessor)
+        public GameEngineFactory(ILogger<GameEngineFactory> logger, IHttpContextAccessor accessor,
+                                 IServiceProvider serviceProvider)
         {
             this.logger = logger;
             this.accessor = accessor;
+            this.serviceProvider = serviceProvider;
 
             timer = new Timer(Interval);
             timer.Elapsed += Elapsed;
@@ -44,17 +48,17 @@
 
         public IGameEngine GetEngine()
         {
-            string id = accessor.HttpContext.Session.GetString(Key);
-
-            if (string.IsNullOrEmpty(id))
+            HttpContext context = accessor?.HttpContext;
+            if (context == null)
             {
-                id = Guid.NewGuid().ToString();
-                accessor.HttpContext.Session.SetString(Key, id);
+                throw new Exception("Unable to continue, there is no http context.");
             }
+
+            string id = context.Session.GetString(Key);
 
             IGameEngine engine;
 
-            if (engines.ContainsKey(id))
+            if (!string.IsNullOrEmpty(id) && engines.ContainsKey(id))
             {
                 logger.LogDebug("Returning existing game engine.");
                 engine = engines[id];
@@ -62,9 +66,10 @@
             else
             {
                 logger.LogDebug("Creating a new game engine");
-                engine = new GameEngine(new GameBoard(new ReactGameSettings()), new MoveValidator(),
-                    new GameBoardAnalyzer());
+                engine = serviceProvider.GetRequiredService<IGameEngine>();
+                id = engine.Id;
                 engines.Add(id, engine);
+                context.Session.SetString(Key, id);
             }
 
             enginesLastRetrieved[id] = true;
