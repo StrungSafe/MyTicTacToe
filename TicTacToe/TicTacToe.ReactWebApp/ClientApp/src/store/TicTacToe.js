@@ -1,5 +1,7 @@
 ﻿const initialState = {
-    gameStatus: 'Ready',
+    gameStatus: 'NewGameXMove',
+    makeMoveSuccess: true,
+    newGameSuccess: true,
     gameBoard: [
         [0, 0, 0],
         [0, 0, 0],
@@ -9,7 +11,6 @@
 
 export const actionCreators = {
     makeMove: (row, column) => async dispatch => {
-        console.log('working');
         const url = `api/TicTacToe/MakeMove?row=${row}&column=${column}`;
         var data;
         await fetch(url).then(response => response.json()).then(results => { data = results; });
@@ -31,6 +32,8 @@ export const reducer = (state, action) => {
     if (action.type === 'newGame') {
         return {
             ...state,
+            newGameSuccess: action.success,
+            makeMoveSuccess: true,
             gameStatus: action.gameStatus,
             gameBoard: action.gameBoard,
         }
@@ -39,6 +42,7 @@ export const reducer = (state, action) => {
     if (action.type === 'makeMove') {
         return {
             ...state,
+            makeMoveSuccess: action.success,
             gameStatus: action.gameStatus,
             gameBoard: action.gameBoard,
         }

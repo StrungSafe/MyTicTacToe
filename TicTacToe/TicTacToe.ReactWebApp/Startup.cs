@@ -1,7 +1,5 @@
 namespace TicTacToe.ReactWebApp
 {
-    using System;
-
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Mvc;
@@ -34,7 +32,7 @@ namespace TicTacToe.ReactWebApp
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
-            
+
             app.UseSession();
 
             app.UseMvc(routes => { routes.MapRoute(name: "default", template: "{controller}/{action=Index}/{id?}"); });
@@ -69,6 +67,8 @@ namespace TicTacToe.ReactWebApp
             });
 
             services.AddHttpContextAccessor();
+
+            services.AddSingleton<IGameEngineFactory, GameEngineFactory>();
         }
     }
 }

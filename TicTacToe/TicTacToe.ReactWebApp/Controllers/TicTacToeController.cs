@@ -1,55 +1,33 @@
 ﻿namespace TicTacToe.ReactWebApp.Controllers
 {
     using System;
-    using System.Collections.Generic;
 
-    using Microsoft.AspNetCore.Http;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Logging;
 
-    using TicTacToe.Core;
     using TicTacToe.Core.Interfaces;
 
     [Route("api/[controller]")]
     public class TicTacToeController : Controller
     {
-        private static readonly Dictionary<string, IGameEngine> GameEngines = new Dictionary<string, IGameEngine>();
-
-        private readonly IGameEngine gameEngine;
+        private readonly IGameEngineFactory factory;
 
         private readonly ILogger logger;
 
-        public TicTacToeController(ILogger<TicTacToeController> logger, IHttpContextAccessor accessor)
+        public TicTacToeController(ILogger<TicTacToeController> logger, IGameEngineFactory factory)
         {
             this.logger = logger;
-
-            string id = accessor.HttpContext.Session.GetString("engineId");
-
-            if (string.IsNullOrEmpty(id))
-            {
-                id = Guid.NewGuid().ToString();
-                accessor.HttpContext.Session.SetString("engineId", id);
-            }
-
-            if (GameEngines.ContainsKey(id))
-            {
-                gameEngine = GameEngines[id];
-            }
-            else
-            {
-                var engine = new GameEngine(new GameBoard(new ReactGameSettings()), new MoveValidator(),
-                    new GameBoardAnalyzer());
-                GameEngines.Add(id, engine);
-                gameEngine = engine;
-            }
+            this.factory = factory;
         }
 
         [HttpGet("[action]")]
-        public GameResult MakeMove(int gameId, int row, int column)
+        public GameResult MakeMove(int row, int column)
         {
             try
             {
                 Move move;
+
+                IGameEngine gameEngine = factory.GetEngine();
 
                 if (gameEngine.GameState == GameState.NewGameXMove || gameEngine.GameState == GameState.XMove)
                 {
@@ -69,8 +47,9 @@
                            GameBoard = gameEngine.GameBoard
                        };
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                logger.LogError(ex, "There was an unhandled error making a move.");
                 return new GameResult { Success = false };
             }
         }
@@ -80,6 +59,8 @@
         {
             try
             {
+                IGameEngine gameEngine = factory.GetEngine();
+
                 gameEngine.NewGame();
 
                 return new GameResult
@@ -87,8 +68,9 @@
                            Success = true, GameState = gameEngine.GameState.ToString(), GameBoard = gameEngine.GameBoard
                        };
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                logger.LogError(ex, "There was an unhandled error starting a new game.");
                 return new GameResult { Success = false };
             }
         }

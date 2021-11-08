@@ -3,6 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import { actionCreators } from '../../store/TicTacToe';
+import convertGameStatus from '../../util/convertGameStatus';
 
 import GameBoard from './GameBoard';
 
@@ -16,9 +17,21 @@ const TicTacToe = props => (
 
     <GameBoard {...props} />
 
-    <p className='gameStatus'>Game Status: <strong>{props.gameStatus}</strong></p>
+    {
+        !props.makeMoveSuccess && (
+          <p className='gameStatus'>Invalid Move <strong>Try Again</strong></p>
+        )
+    }
+
+    <p className='gameStatus'>Game Status: <strong>{convertGameStatus(props.gameStatus)}</strong></p>
 
     <button className='newGameBtn' onClick={props.newGame}>New Game</button>
+
+    {
+        !props.newGameSuccess && (
+          <p className='gameStatus'>Failed to Start New Game <strong>Try Again</strong></p>
+        )
+    }
   </div>
 );
 
