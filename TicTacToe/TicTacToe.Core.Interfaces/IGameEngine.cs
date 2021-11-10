@@ -6,6 +6,8 @@
 
         GameState GameState { get; }
 
+        string Id { get; }
+
         bool MakeMove(Move move);
 
         void NewGame();

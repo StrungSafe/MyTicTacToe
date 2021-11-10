@@ -3,24 +3,33 @@
     using System;
 
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Logging;
 
-    using TicTacToe.Core;
     using TicTacToe.Core.Interfaces;
 
     [Route("api/[controller]")]
     public class TicTacToeController : Controller
     {
-        private static readonly IGameEngine GameEngine = new GameEngine(new GameBoard(new ReactGameSettings()),
-            new MoveValidator(), new GameBoardAnalyzer());
+        private readonly IGameEngineFactory factory;
+
+        private readonly ILogger logger;
+
+        public TicTacToeController(ILogger<TicTacToeController> logger, IGameEngineFactory factory)
+        {
+            this.logger = logger;
+            this.factory = factory;
+        }
 
         [HttpGet("[action]")]
-        public GameResult MakeMove(int gameId, int row, int column)
+        public GameResult MakeMove(int row, int column)
         {
             try
             {
                 Move move;
 
-                if (GameEngine.GameState == GameState.NewGameXMove || GameEngine.GameState == GameState.XMove)
+                IGameEngine gameEngine = factory.GetEngine();
+
+                if (gameEngine.GameState == GameState.NewGameXMove || gameEngine.GameState == GameState.XMove)
                 {
                     move = new Move(Player.X, row, column);
                 }
@@ -29,17 +38,18 @@
                     move = new Move(Player.O, row, column);
                 }
 
-                bool success = GameEngine.MakeMove(move);
+                bool success = gameEngine.MakeMove(move);
 
                 return new GameResult
                        {
                            Success = success,
-                           GameState = GameEngine.GameState.ToString(),
-                           GameBoard = GameEngine.GameBoard
+                           GameState = gameEngine.GameState.ToString(),
+                           GameBoard = gameEngine.GameBoard
                        };
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                logger.LogError(ex, "There was an unhandled error making a move.");
                 return new GameResult { Success = false };
             }
         }
@@ -49,26 +59,20 @@
         {
             try
             {
-                GameEngine.NewGame();
+                IGameEngine gameEngine = factory.GetEngine();
+
+                gameEngine.NewGame();
 
                 return new GameResult
                        {
-                           Success = true, GameState = GameEngine.GameState.ToString(), GameBoard = GameEngine.GameBoard
+                           Success = true, GameState = gameEngine.GameState.ToString(), GameBoard = gameEngine.GameBoard
                        };
             }
-            catch (Exception)
+            catch (Exception ex)
             {
+                logger.LogError(ex, "There was an unhandled error starting a new game.");
                 return new GameResult { Success = false };
             }
         }
-    }
-
-    public class GameResult
-    {
-        public GameBoardMark[,] GameBoard { get; set; }
-
-        public string GameState { get; set; }
-
-        public bool Success { get; set; }
     }
 }

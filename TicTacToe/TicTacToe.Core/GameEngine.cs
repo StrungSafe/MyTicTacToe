@@ -1,13 +1,16 @@
 ﻿namespace TicTacToe.Core
 {
     using System;
-    using Interfaces;
+
+    using TicTacToe.Core.Interfaces;
 
     public class GameEngine : IGameEngine
     {
         private readonly IGameBoard gameBoard;
 
         private readonly IGameBoardAnalyzer gameBoardAnalyzer;
+
+        private readonly Guid guid;
 
         private readonly IMoveValidator moveValidator;
 
@@ -17,12 +20,16 @@
             this.moveValidator = moveValidator ?? throw new ArgumentNullException(nameof(moveValidator));
             this.gameBoardAnalyzer = gameBoardAnalyzer ?? throw new ArgumentNullException(nameof(gameBoardAnalyzer));
 
+            guid = Guid.NewGuid();
+
             NewGame();
         }
 
         public GameBoardMark[,] GameBoard => gameBoard.Board;
 
         public GameState GameState { get; private set; }
+
+        public string Id => guid.ToString();
 
         public bool MakeMove(Move move)
         {
